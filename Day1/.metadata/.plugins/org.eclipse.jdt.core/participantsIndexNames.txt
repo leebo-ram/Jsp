@@ -1,0 +1,5 @@
+INDEX VERSION 1.131
+C:\AAA\Jsp\Day1\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2926312857.index
+\Test\src
+C:\AAA\Jsp\Day1\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\636229822.index
+\Variable\src
