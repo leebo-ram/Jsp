@@ -1,8 +1,8 @@
-/*게시판 - 상품후기도 비슷한 형식이다.*/
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%
+	/*게시판 - 상품후기도 비슷한 형식이다.*/
    if(session.getAttribute("userid") == null) {
 %>
    <script>
@@ -64,7 +64,7 @@
 %>
       <tr>
          <td><%=b_idx%></td>
-         <td><%=b_title%></td>
+         <td><a href="./view.jsp?b_idx=<%=b_idx%>"><%=b_title%></a></td>
          <td><%=b_name%>(<%=b_userid%>)</td>
          <td><%=b_hit%></td>
          <td><%=b_up%></td>
