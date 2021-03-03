@@ -9,14 +9,15 @@ public class MemberDTO {
 	private String username;
 	private String email;
 	private String hp;
-	private String[] hobby = new String[5];
+	private String[] hobby  = new String[5];
 	private String ssn1;
 	private String ssn2;
 	private String zipcode;
-	private String adress1;
-	private String adress2;
-	private String adress3;
+	private String address1;
+	private String address2;
+	private String address3;
 	private String regdate;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -77,23 +78,23 @@ public class MemberDTO {
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
-	public String getAdress1() {
-		return adress1;
+	public String getAddress1() {
+		return address1;
 	}
-	public void setAdress1(String adress1) {
-		this.adress1 = adress1;
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
-	public String getAdress2() {
-		return adress2;
+	public String getAddress2() {
+		return address2;
 	}
-	public void setAdress2(String adress2) {
-		this.adress2 = adress2;
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
-	public String getAdress3() {
-		return adress3;
+	public String getAddress3() {
+		return address3;
 	}
-	public void setAdress3(String adress3) {
-		this.adress3 = adress3;
+	public void setAddress3(String address3) {
+		this.address3 = address3;
 	}
 	public String getRegdate() {
 		return regdate;
@@ -106,9 +107,7 @@ public class MemberDTO {
 	public String toString() {
 		return "MemberDTO [idx=" + idx + ", userid=" + userid + ", userpw=" + userpw + ", username=" + username
 				+ ", email=" + email + ", hp=" + hp + ", hobby=" + Arrays.toString(hobby) + ", ssn1=" + ssn1 + ", ssn2="
-				+ ssn2 + ", zipcode=" + zipcode + ", adress1=" + adress1 + ", adress2=" + adress2 + ", adress3="
-				+ adress3 + ", regdate=" + regdate + "]";
+				+ ssn2 + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2=" + address2 + ", address3="
+				+ address3 + ", regdate=" + regdate + "]";
 	}
-	
-	
 }

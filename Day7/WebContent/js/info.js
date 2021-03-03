@@ -1,11 +1,10 @@
 function sendit(){
-    const idCheck = RegExp(/^[a-zA-Z0-9]{6,20}$/);
     const pwCheck = RegExp(/^[a-zA-Z0-9]{6,20}$/);
     const nameCheck = RegExp(/^[가-힣]+$/);
     const hpCheck = RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
     const emailCheck = RegExp(/^[a-zA-Z0-9\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+/);
 
-     if(!pwCheck.test($('#userpw').val())){
+    if(!pwCheck.test($('#userpw').val())){
         alert('비밀번호를 형식에 맞게 입력하세요');
         $('#userpw').val('');
         $('#userpw').focus();
@@ -62,7 +61,7 @@ function sendit(){
     return true;
 }
 
-$(function(){	
+$(function(){
     $('#ssn1').on('keyup', function(){
         if($(this).val().length >= 6){
             $('#ssn2').focus();
@@ -101,3 +100,5 @@ $(function(){
         $('#isSsn').val('y');
     });
 });
+
+

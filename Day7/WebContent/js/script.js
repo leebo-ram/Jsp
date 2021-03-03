@@ -16,7 +16,6 @@ function sendit(){
     	$('#userid').focus();
     	return false;
     }
-
     if(!pwCheck.test($('#userpw').val())){
         alert('비밀번호를 형식에 맞게 입력하세요');
         $('#userpw').val('');
@@ -144,3 +143,5 @@ $(function(){
         $('#isSsn').val('y');
     });
 });
+
+

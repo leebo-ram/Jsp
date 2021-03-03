@@ -1,67 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-<%
-   if(session.getAttribute("userid") == null){
+<%!
+	// 취미 배열에 문자열로 전달한 취미가 존재하는지 여부를 판단하는 메소드
+	public static boolean compare_hobby(String input, String[] arr){
+		for(String data : arr){
+			if(data.equals(input)){
+				return true;
+			}
+		}
+		return false;
+	}
 %>
-   <script>
-      alert('로그인 후 이용하세요');
-      location.href='./login.jsp';
-   </script>
 <%
-   }else{
-
-   Connection conn = null;
-   PreparedStatement pstmt = null;
-   ResultSet rs = null;
-      
-   String sql = "";
-   String url = "jdbc:mysql://localhost:3306/jspstudy";
-   String uid = "root";
-   String upw = "1234";
-   
-   String userid = (String)session.getAttribute("userid");
-   String mem_name = "";
-   String mem_hp = "";
-   String mem_email = "";
-   String mem_hobby = "";
-   String[] hobbyArr = null;
-   String mem_ssn1 = "";
-   String mem_ssn2 = "";
-   String mem_zipcode = "";
-   String mem_address1 = "";
-   String mem_address2 = "";
-   String mem_address3 = "";  
-   
-   
-   
-   try{
-      Class.forName("com.mysql.jdbc.Driver"); // com.mysql.cj.jdbc.Driver
-      conn = DriverManager.getConnection(url, uid, upw);
-      if(conn != null){
-         sql = "select * from tb_member where mem_userid=?";
-         pstmt = conn.prepareStatement(sql);
-         pstmt.setString(1, userid);
-         rs = pstmt.executeQuery();
-         if(rs.next()){
-        	mem_name = rs.getString("mem_name");
-            mem_hp = rs.getString("mem_hp");
-            mem_email = rs.getString("mem_email");
-            mem_hobby = rs.getString("mem_hobby");
-            hobbyArr = mem_hobby.split(" ");
-            mem_ssn1 = rs.getString("mem_ssn1");
-            mem_ssn2 = rs.getString("mem_ssn2");
-            mem_zipcode = rs.getString("mem_zipcode");
-            mem_address1 = rs.getString("mem_address1");
-            mem_address2 = rs.getString("mem_address2");
-            mem_address3 = rs.getString("mem_address3");
-         }
-      }
-   }catch(Exception e){
-      e.printStackTrace();
-   }
+	if(session.getAttribute("userid") == null){
 %>
-
+	<script>
+		alert('로그인 후 이용하세요');
+		location.href='./login.jsp';
+	</script>
+<%
+	}else{
+%>
+<jsp:useBean id="member" class="com.koreait.member.MemberDTO"/>
+<jsp:useBean id="dao" class="com.koreait.member.MemberDAO"/>
+<%
+	member.setIdx(Integer.parseInt(String.valueOf(session.getAttribute("useridx"))));
+	member.setUserid((String)session.getAttribute("userid"));
+	//member.setUsername((String)session.getAttribute("username"));
+	
+	if(dao.info(member) == null){
+%>
+		<script>
+			alert('잘못된 접속입니다');
+			location.href='./login.jsp';
+		</script>
+<%
+	}else{
+		
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,70 +102,52 @@
     <form name="regform" id="regform" method="post" action="info_ok.jsp" onsubmit="return sendit()">
         <input type="hidden" name="isSsn" id="isSsn" value="n">
 
-        <p>아이디 : <%=userid%></p>
+        <p>아이디 : <%=member.getUserid()%></p>
         <p><label>비밀번호 : <input type="password" name="userpw" id="userpw" maxlength="20"></label></p>
         <p><label>비밀번호 확인 : <input type="password" name="userpw_re" id="userpw_re" maxlength="20"></label></p>
-        <p><label>이름 : <input type="text" name="username" id="username" value="<%=mem_name%>"></label></p>
-        <p><label>휴대폰 번호 : <input type="text" name="hp" id="hp" value="<%=mem_hp%>"></label></p>
-        <p><label>이메일 : <input type="text" name="email" id="email" value="<%=mem_email%>"></label></p>
+        <p><label>이름 : <input type="text" name="username" id="username" value="<%=member.getUsername()%>"></label></p>
+        <p><label>휴대폰 번호 : <input type="text" name="hp" id="hp" value="<%=member.getHp()%>"></label></p>
+        <p><label>이메일 : <input type="text" name="email" id="email" value="<%=member.getEmail()%>"></label></p>
         <p>취미 : <label>드라이브<input type="checkbox" name="hobby" value="드라이브" 
         <%
-           for(int i=0; i<hobbyArr.length; i++){
-              if(hobbyArr[i].equals("드라이브")){
-                 out.print("checked");
-              }
-           }
+        	if(compare_hobby("드라이브", member.getHobby())) { out.print("checked"); }
         %>
         ></label>
-            <label>등산<input type="checkbox" name="hobby" value="등산"
+            <label>등산<input type="checkbox" name="hobby" value="등산" 
         <%
-           for(int i=0; i<hobbyArr.length; i++){
-              if(hobbyArr[i].equals("등산")){
-                 out.print("checked");
-              }
-           }
+        	if(compare_hobby("등산", member.getHobby())) { out.print("checked"); }
+        %>
+         ></label>
+            <label>영화감상<input type="checkbox" name="hobby" value="영화감상" 
+        <%
+        	if(compare_hobby("영화감상", member.getHobby())) { out.print("checked"); }
         %>
             ></label>
-            <label>영화감상<input type="checkbox" name="hobby" value="영화감상"
+            <label>쇼핑<input type="checkbox" name="hobby" value="쇼핑" 
         <%
-           for(int i=0; i<hobbyArr.length; i++){
-              if(hobbyArr[i].equals("영화감상")){
-                 out.print("checked");
-              }
-           }
+        	if(compare_hobby("쇼핑", member.getHobby())) { out.print("checked"); }
         %>
             ></label>
-            <label>쇼핑<input type="checkbox" name="hobby" value="쇼핑"
+            <label>게임<input type="checkbox" name="hobby" value="게임" 
         <%
-           for(int i=0; i<hobbyArr.length; i++){
-              if(hobbyArr[i].equals("쇼핑")){
-                 out.print("checked");
-              }
-           }
+        	if(compare_hobby("게임", member.getHobby())) { out.print("checked"); }
         %>
             ></label>
-            <label>게임<input type="checkbox" name="hobby" value="게임"
-       <%
-           for(int i=0; i<hobbyArr.length; i++){
-              if(hobbyArr[i].equals("게임")){
-                 out.print("checked");
-              }
-           }
-        %>
-        	></label>
         </p>
-        <p>주민등록번호 : <input type="text" name="ssn1" id="ssn1" maxlength="6" value="<%=mem_ssn1%>"> - <input type="text" name="ssn2" id="ssn2" maxlength="7" value="<%=mem_ssn2%>"> <input type="button" id="ssnBtn" value="주민등록번호 검증"></p>
-        <p><label>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" value="<%=mem_zipcode%>" placeholder="우편번호" readonly></label> <input type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()"></p>
-        <p><label>주소 : <input type="text" name="address1" id="sample6_address" placeholder="주소" value="<%=mem_address1%>"></label></p>
-        <p><label>상세주소 : <input type="text" name="address2" id="sample6_detailAddress" placeholder="상세주소" value="<%=mem_address2%>"></label></p>
-        <p><label>참고항목 : <input type="text" name="address3" id="sample6_extraAddress" placeholder="참고항목" value="<%=mem_address3%>"></label></p>
+        <p>주민등록번호 : <input type="text" name="ssn1" id="ssn1" maxlength="6" value="<%=member.getSsn1()%>"> - 
+        <input type="text" name="ssn2" id="ssn2" maxlength="7" value="<%=member.getSsn2()%>"> 
+        <input type="button" id="ssnBtn" value="주민등록번호 검증"></p>
+        <p><label>우편번호 : <input type="text" name="zipcode" id="sample6_postcode" value="<%=member.getZipcode()%>" placeholder="우편번호" readonly></label> <input type="button" value="우편번호 검색" onclick="sample6_execDaumPostcode()"></p>
+        <p><label>주소 : <input type="text" name="address1" id="sample6_address" placeholder="주소" value="<%=member.getAddress1()%>"></label></p>
+        <p><label>상세주소 : <input type="text" name="address2" id="sample6_detailAddress" placeholder="상세주소" value="<%=member.getAddress2()%>"></label></p>
+        <p><label>참고항목 : <input type="text" name="address3" id="sample6_extraAddress" placeholder="참고항목" value="<%=member.getAddress3()%>"></label></p>
 
-      <p><input type="submit" value="수정완료"> <input type="reset" value="다시작성">
+        <p><input type="submit" value="수정완료"> <input type="reset" value="다시작성">
         <input type="button" value="돌아가기" onclick="location.href='login.jsp'"></p>
-
     </form>
 </body>
 </html>
-<%
-   }
+<%		
+		}
+	}
 %>

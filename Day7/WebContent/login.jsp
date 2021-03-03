@@ -3,7 +3,7 @@
 <%
 	String userid = null;
 	if(session.getAttribute("userid") != null){
-		userid = (String)session.getAttribute("userid");
+		userid = (String)session.getAttribute("userid");	
 	}
 %>
 <!DOCTYPE html>
@@ -25,8 +25,8 @@
 <% 
 	}else{
 %>
-	<h3><%=userid%>(<%=session.getAttribute("username") %>)님 환영합니다.</h3>
-	<p><input type="button" value="로그아웃" onclick="location.href='logout.jsp'">
+	<h3><%=userid%>(<%=session.getAttribute("username")%>)님 환영합니다.</h3>
+	<p><input type="button" value="로그아웃" onclick="location.href='logout.jsp'"> 
 	<input type="button" value="정보수정" onclick="location.href='info.jsp'">
 	<input type="button" value="게시판" onclick="location.href='./board/list.jsp'"></p>
 <%

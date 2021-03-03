@@ -6,6 +6,7 @@ public class Member {
 	private String name;
 	private String email;
 	private String job;
+	
 	public String getUserid() {
 		return userid;
 	}
@@ -39,8 +40,7 @@ public class Member {
 	
 	@Override
 	public String toString() {
-		return "Member [userid=" + userid + ", userpw=" + userpw + ", name=" + name + ", email=" + email + ", jab="
+		return "Member [userid=" + userid + ", userpw=" + userpw + ", name=" + name + ", email=" + email + ", job="
 				+ job + "]";
 	}
-	
 }

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,9 +62,9 @@
 <body>
     <h2>회원가입</h2>
     <form name="regform" id="regform" method="post" action="regist_ok.jsp" onsubmit="return sendit()">
-        <input type="hidden" name="isSsn" id="isSsn" value="n">        
-		<input type="hidden" name="isIdCheck" id="isIdCheck" value="n">
-		
+        <input type="hidden" name="isSsn" id="isSsn" value="n">
+        <input type="hidden" name="isIdCheck" id="isIdCheck" value="n">
+
         <p><label>아이디 : <input type="text" name="userid" id="userid" maxlength="20"></label> <input type="button" id="btnIdCheck" value="아이디 중복체크"></p>
         <p id="idCheckMsg"></p>
         <p><label>비밀번호 : <input type="password" name="userpw" id="userpw" maxlength="20"></label></p>
@@ -89,4 +88,3 @@
     </form>
 </body>
 </html>
-
