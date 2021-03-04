@@ -1,0 +1,168 @@
+JSP 영역
+한개이상의 JSP가 모인 그룹
+
+1. page Context
+현재 처리되고 있는 하나의 페이지 영역
+pageContext.setAttribute("변수", "값");
+
+2. request
+객체가 포워드되는 영역에서 사용하는 객체, 요청하고 포워드 하는 과정의 JSP를 reuqest 영역
+request.setAttribute("변수","값");
+
+3. session
+하나의 사용자가 사이트에서 지나가는 모든 페이지 영역에서 사용하는 객체
+session.setAttribute("변수","값");
+
+4. application
+하나의 사이트에 속해 있는 모든 페이지 영역에서 사용되는 공용 객체
+application.setAttribute("변수","값");
+
+
+EL(Expression Language) 표현식
+자바빈의 프로퍼티, 값, 액션태그등을 쉽고 간결하게 사용할 수 있도록 하는 기술입니다.
+${} : JSP가 실행될 때 즉시 반영됩니다.(객체의 프로퍼티 값을 get)
+#{} : 시스텝에서 필요하다고 판단될 때 값을 사용합니다. (객체의 프로퍼티 값을 set)
+
+변수
+page Context -> pageScope
+request -> requestScope
+session -> sessionScope
+application ->applicationScope
+
+산술 연산자
+${10 + 2}
+${10 - 2}
+${10 * 2}
+${10 div 2}	// 나누기
+${10 mod 2}	// 나머지
+
+비교 연산자
+${10 eq 2}		// 같다
+${10 ne 2}		// 다르다
+${10 gt 2}		// 크다
+${10 lt 2}		// 작다
+${10 ge 2}		// 크거나 같다
+${10 le 2}		// 작거나 같다
+
+논리 연산자
+${true and true}	// and 연산
+${true and false}	// or 연산
+${not true}	// not 연산
+
+삼항 연산자
+${20 > 10 ? "크다" : "작다"}
+
+empty 연산자
+${empty 변수}
+1. 값이 null이면 true
+2. 문자열, 배열, Map, Collection 객체의 크기가 0이면 true
+3. 그 외에는 false
+
+
+JSTL(Java Server Page Standard Tag Library)
+JSP개발을 단순화하기 위한 태그 라이브러리입니다.
+
+다운로드
+http://tomcat.apache.org/taglibs/standard/
+http://tomcat.apache.org/download-taglibs.cgi
+
+* 라이브러리이기 때문에 JSTL을 사용하려면, 라이브러리를 다운로드 해서 build path에 추가해야 합니다.
+
+장점
+1. 빠른 개발이 가능합니다.
+2. 코드를 재사용할 수 있습니다.
+3. 스크립틀릿 태그를 사용할 필요가 없습니다.
+
+JSTL의 종류
+1.  core tags
+변수 생성, URL 관리, 프로그램의 흐름 제어
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+//! 매번 맨위에 작성해줘야 함!
+
+c:out
+jsp에서 <%=%> 태그와 유사한 표현식의 결과를 표시합니다.
+
+c:import
+상대 또는 절대 URL을 검색하여 내용을 var 문자열, varReader의 Reader 또는 페이지에 표시합니다.
+
+c:set
+계산 결과를 scope 변수에 설정합니다.
+
+c:remove
+특정 범위에서 지정된 범위 변수를 제거할 때 사용합니다.
+
+c:if
+조건을 테스트하는데 사용되는 조건부 태그이며 표현식이 참인 경우에만 내용을 표시합니다.
+
+c:choose, c:when, c:otherwise
+조건이 true인 경우 본문 내용을 포함한느 간단한 조건부 태그를 사용합니다.
+
+c:forEach
+기본 반복 태그이며 고정된 횟수 또는 초과되는 중첩된 본문 내용을 반복합니다.
+
+c:redirect
+브라우저를 새 URL로 리디렉션합니다.
+
+
+//! jsp 보다 코드를 단순화 시키는 작업 / 서버에 올라가기때문에 소스가 전부 공개되는 jsp이다.
+
+
+2. formatting
+메시지 형식화, 번호 및 날짜, 통화 형식화 등을 지원
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+//! 매번 맨위에 작성해줘야 함!
+
+fmt:parseNumber
+통화, 백분율 또는 숫자의 문자열을 표현하는 분석하는데 사용합니다.
+fmt.formatNumber
+특정 형식 또는 정밀도로 숫자 값을 형식화 하는데 사용합니다.
+fmt:parseDate
+시관과 날짜의 문자열 표현을 분석하는데 사용합니다.
+fmt:formatDate 
+제공된 패턴 및 스일을 사용하여 시간 및 또는 날짜를 형식화합니다.
+fmt:setTimeZone
+시간대 구성 변수 내에 시간을 저장합니다.
+
+
+3. function
+문자열 조작 및 문자열 길이를 지원
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+//! 매번 맨위에 작성해줘야 함!
+
+fn:contains()
+지정된 하위 문자열을 포함하는 입력 문자열을 테스트하는데 사용합니다.
+
+fn:indexOf()
+지정된 하위 문자열이 처음 나타나는 문자열 내에서 인덱스를 반환합니다. 
+
+fn:split()
+문자열을 하위 문자열 배열로 분할합니다.
+
+fn:endsWith()
+입력 문자열이 지정된 접미어로 끝나는지 테스트 합니다.
+
+fn:trim()
+문자열의 양쪽 끝 공백을 제거합니다.
+
+fn:toLowerCase() 
+문자열의 모든 문자를 소문자로 변환합니다
+
+fn:toUpperCase() 
+문자열의 모든 문자를 대문자로 변환합니다
+
+fn.substring()
+주어진 문자열 시작 및 끝 위치에 따라 문자열의 일부를 반환합니다.
+
+fn.length() 
+문자열 내부의 문자 수 또는 컬렉션의 항목수를 반환합니다.
+
+fn.replace()
+모든 문자열을 다른 문자열 시퀀스로 변환합니다.
+
+과제.
+1. 게시판 페이징 만든기
+2. 번호 역순으로 구현하기
+
+* 월요일 시험 : 게시판만들기 
+추가점수 : 게시판의 editor 달기
+기능만 잘 들어가면 됨. 디자인 신경안씀 
